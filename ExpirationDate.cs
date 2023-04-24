@@ -8,4 +8,9 @@ public class ExpirationDate
         ExpirationMonth = expirationMonth;
         ExpirationYear = expirationYear;
     }
+
+    public override string ToString()
+    {
+        return ExpirationMonth + ", " + ExpirationYear;
+    }
 }

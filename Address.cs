@@ -14,4 +14,9 @@ public class Address
         HouseNumber = houseNumber;
         FlatNumber = flatNumber;
     }
+    
+    public override string ToString()
+    {
+        return Country + ", " + City + ", " + Street + ", " + HouseNumber  + ", " + FlatNumber;
+    }
 }

@@ -10,4 +10,9 @@ public class UserInfo
         UserNumber = userNumber;
         UserAddress = userAddress;
     }
+
+    public override string ToString()
+    {
+        return UserName + ", " + UserNumber + ", " + UserAddress;
+    }
 }
