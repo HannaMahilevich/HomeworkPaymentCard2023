@@ -26,17 +26,21 @@ ExpirationDate expirationDate4 = new ExpirationDate(07, 24);
 ExpirationDate expirationDate5 = new ExpirationDate(08, 27);
 
 
-PaymentCard paymentCard1 = new PaymentCard("0000 4141 1010 0180", user1, expirationDate1, 308);
+DebitCard paymentCard1 = new DebitCard("0000 4141 1010 0180", user1, expirationDate1, 308, 1500, 0);
 
-PaymentCard paymentCard2 = new PaymentCard("0220 1342 0000 0909", user2, expirationDate2, 122);
+CreditCard paymentCard2 = new CreditCard("0220 1342 0000 0909", user2, expirationDate2, 122, 0, 5000, 12);
 
-PaymentCard paymentCard3 = new PaymentCard("1234 3894 0000 0000", user3, expirationDate3, 984);
+DebitCard paymentCard3 = new DebitCard("1234 3894 0000 0000", user3, expirationDate3, 984, 1000, 0);
 
 DebitCard paymentCard4 = new DebitCard("5609 0000 3450 3456", user4, expirationDate4, 773, 4000, 8);
 
-CreditCard paymentCard5 = new CreditCard("0000 3330 2234 0894", user5, expirationDate5, 708, 2000, 13);
+CreditCard paymentCard5 = new CreditCard("0000 3330 2234 0894", user5, expirationDate5, 708, 1000, 2000, 13);
 
 PaymentCard[] cards = new PaymentCard[] {paymentCard1, paymentCard2, paymentCard3, paymentCard4, paymentCard5};
+
+ShowCards(cards);
+
+paymentCard1.MakePayment(186);
 
 ShowCards(cards);
 

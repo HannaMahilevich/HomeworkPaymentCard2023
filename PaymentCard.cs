@@ -1,4 +1,4 @@
-public class PaymentCard
+public abstract class PaymentCard
 {
     public string CardNumber;
     public UserInfo UserInfo;
@@ -16,4 +16,6 @@ public class PaymentCard
     {
         return String.Format("Card number: {0}, User's name and surname: {1}, expiration date {2}/{3}, CVV: {4}", CardNumber, UserInfo.UserName, ExpirationDate.ExpirationMonth, ExpirationDate.ExpirationYear, CVV);
     }
+
+    public abstract bool MakePayment(decimal totalAmount);
 }
