@@ -11,6 +11,6 @@ public class ExpirationDate
 
     public override string ToString()
     {
-        return ExpirationMonth + ", " + ExpirationYear;
+        return ExpirationMonth + "/" + ExpirationYear;
     }
 }

@@ -1,21 +1,27 @@
-public abstract class PaymentCard
+public abstract class PaymentCard : IPaymentMean
 {
+    public string CardHolder;
     public string CardNumber;
-    public UserInfo UserInfo;
     public ExpirationDate ExpirationDate;
     public short CVV;
 
-    public PaymentCard (string cardNumber, UserInfo userInfo, ExpirationDate expirationDate, short cvv)
+    public PaymentCard(string cardNumber, string cardHolder, ExpirationDate expirationDate, short cvv)
     {
         CardNumber = cardNumber;
-        UserInfo = userInfo;
+        CardHolder = cardHolder;
         ExpirationDate = expirationDate;
-        CVV =cvv;
+        CVV = cvv;
     }
     public virtual string GetFullInfo()
     {
-        return String.Format("Card number: {0}, User's name and surname: {1}, expiration date {2}/{3}, CVV: {4}", CardNumber, UserInfo.UserName, ExpirationDate.ExpirationMonth, ExpirationDate.ExpirationYear, CVV);
+        return String.Format("Card number: {0}, Client's name and surname: {1}, expiration date {2}, CVV: {3}", CardNumber, CardHolder, ExpirationDate, CVV);
     }
 
-    public abstract bool MakePayment(decimal totalAmount);
+    public abstract bool MakePayment(decimal amount);
+
+    public abstract bool TopUp(decimal amount);
+
+    public abstract decimal GetBalance();
+
+    public abstract string GetID();
 }
