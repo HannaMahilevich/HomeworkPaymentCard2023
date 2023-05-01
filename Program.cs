@@ -10,13 +10,13 @@
 
 Address address1 = new Address("PL", "Warsaw", "Narwik", 24, 53);
 Address address2 = new Address("PL", "Gdansk", "Jaglana", 6, 24);
-// Address address3 = new Address("DE", "Berlin", "Gassnerweg", 18, 5);
+Address address3 = new Address("DE", "Berlin", "Gassnerweg", 18, 5);
 // Address address4 = new Address("BLR", "Minsk", "Hercena", 30, 33);
 // Address address5 = new Address("LT", "Vilnus", "Gedymina", 3, 86);
 
 BankClient client1 = new BankClient(new ClientInfo("Vasya Ivanov", "+48 182934928", address1));
 BankClient client2 = new BankClient(new ClientInfo("Ivan Vasiliev", "+48 388172843", address2));
-// BankClient client3 = new BankClient(new ClientInfo("Vanya Vanyo", "+48 182934928", address3));
+BankClient client3 = new BankClient(new ClientInfo("Vanya Vanyo", "+48 182934928", address3));
 // BankClient client4 = new BankClient(new ClientInfo("Vasiliy Petrov", "+48 182934928", address4));
 // BankClient client5 = new BankClient(new ClientInfo("Petr Sharp", "+48 182934928", address5));
 
@@ -37,9 +37,11 @@ DebitCard paymentCard4 = new DebitCard("5609 0000 3450 3456", client2.ClientInfo
 
 CreditCard paymentCard5 = new CreditCard("0000 3330 2234 0894", client2.ClientInfo.Name, expirationDate5, 708, 1000, 2000, 13);
 
+DebitCard paymentCard6 = new DebitCard("1111 0000 2222 0000", client3.ClientInfo.Name, expirationDate4, 081, 350, 2);
 
+// Adding different payment means to clients
 client1.PaymentMeans.AddRange(new List<IPaymentMean>
-    {paymentCard1, paymentCard2}
+    {paymentCard1, paymentCard2, new Cash(1000)}
     );
 
 client2.PaymentMeans.AddRange(new List<IPaymentMean>
@@ -48,5 +50,30 @@ client2.PaymentMeans.AddRange(new List<IPaymentMean>
 
 client2.PaymentMeans.Add(paymentCard5);
 
+client3.PaymentMeans.AddRange(new List<IPaymentMean>
+    {paymentCard6, new Cash(10), new Bitcoin(3)}
+    );
 
-ShowPaymentMeansBalance(client2);
+
+// Console.WriteLine("---------------Before Payment-----------------");
+// ShowPaymentMeansBalance(client1);
+
+// Console.WriteLine(client1.MakePayment(1200));
+// Console.WriteLine(client1.MakePayment(1000));
+// Console.WriteLine(client1.MakePayment(1000));
+// Console.WriteLine("---------------After Payment-----------------");
+// ShowPaymentMeansBalance(client1);
+
+const decimal amount1 = 20;
+const decimal amount2 = 1000;
+const decimal amount3 = 1500;
+
+Console.WriteLine("---------------Before Payment-----------------");
+ShowPaymentMeansBalance(client3);
+
+Console.WriteLine("Paying amount: " + amount1 + " " + client3.MakePayment(amount1));
+Console.WriteLine("Paying amount: " + amount2 + " " + client3.MakePayment(amount2));
+Console.WriteLine("Paying amount: " + amount3 + " " + client3.MakePayment(amount3));
+
+Console.WriteLine("---------------After Payment-----------------");
+ShowPaymentMeansBalance(client3);
