@@ -69,4 +69,17 @@ class BankClient
         }
         return false;
     }
+
+    public int GetCardCount()
+    {
+        int count = 0;
+        foreach (IPaymentMean paymentMean in PaymentMeans)
+        {
+            if (paymentMean is PaymentCard)
+            {
+                count += 1;
+            }
+        }
+        return count;
+    }
 }

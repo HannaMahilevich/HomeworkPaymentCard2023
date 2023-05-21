@@ -1,4 +1,4 @@
-public class Address
+public class Address : IComparable<Address>
 {
     public string Country;
     public string City;
@@ -18,5 +18,10 @@ public class Address
     public override string ToString()
     {
         return Country + ", " + City + ", " + Street + ", " + HouseNumber  + ", " + FlatNumber;
+    }
+
+    public int CompareTo(Address? address)
+    {
+        return this.ToString().CompareTo(address.ToString());
     }
 }

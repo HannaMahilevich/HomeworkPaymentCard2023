@@ -1,10 +1,36 @@
-﻿static void ShowPaymentMeansBalance(BankClient client)
+﻿static void ShowClientListAddress(List<BankClient> bankClientList)
 {
-    Console.WriteLine(String.Format("Name: {0}", client.ClientInfo.Name));
-    Console.WriteLine("Payment Means:");
-    foreach (IPaymentMean paymentMean in client.PaymentMeans)
+    foreach (BankClient client in bankClientList)
     {
-        Console.WriteLine(String.Format("{0}, Balance: {1}", paymentMean.GetID(), paymentMean.GetBalance()));
+        Console.WriteLine(String.Format("Name: {0}, Address: {1}", client.ClientInfo.Name, client.ClientInfo.Address));
+    }
+}
+
+static void ShowClientListName(List<BankClient> bankClientList)
+{
+    foreach (BankClient client in bankClientList)
+    {
+        Console.WriteLine(String.Format("Name: {0}", client.ClientInfo.Name));
+    }
+}
+
+static void ShowClientListCardsCount(List<BankClient> bankClientList)
+{
+    foreach (BankClient client in bankClientList)
+    {
+        Console.WriteLine(String.Format("Name: {0}, Number of Cards: {1}", client.ClientInfo.Name, client.GetCardCount()));
+    }
+}
+
+static void ShowClientListPaymentMeans(List<BankClient> bankClientList)
+{
+    foreach (BankClient client in bankClientList)
+    {
+        Console.WriteLine(String.Format("Name: {0}", client.ClientInfo.Name));
+        foreach (IPaymentMean paymentMean in client.PaymentMeans)
+        {
+            Console.WriteLine(String.Format("{0}, {1}", paymentMean.GetID(), paymentMean.GetBalance()));
+        }
     }
 }
 
@@ -54,26 +80,29 @@ client3.PaymentMeans.AddRange(new List<IPaymentMean>
     {paymentCard6, new Cash(10), new Bitcoin(3)}
     );
 
+List<BankClient> bankClientList = new List<BankClient>() { client1, client2, client3 };
 
-// Console.WriteLine("---------------Before Payment-----------------");
-// ShowPaymentMeansBalance(client1);
+Console.WriteLine("Sort by name:");
+bankClientList.Sort(new ClientNameComparer());
+ShowClientListName(bankClientList);
+Console.WriteLine("-----------------------------------------");
 
-// Console.WriteLine(client1.MakePayment(1200));
-// Console.WriteLine(client1.MakePayment(1000));
-// Console.WriteLine(client1.MakePayment(1000));
-// Console.WriteLine("---------------After Payment-----------------");
-// ShowPaymentMeansBalance(client1);
+Console.WriteLine("Sort by address:");
+bankClientList.Sort(new ClientAddressComparer());
+ShowClientListAddress(bankClientList);
+Console.WriteLine("-----------------------------------------");
 
-const decimal amount1 = 20;
-const decimal amount2 = 1000;
-const decimal amount3 = 1500;
+Console.WriteLine("Sort by number of cards:");
+bankClientList.Sort(new ClientCardsCountComparer());
+ShowClientListCardsCount(bankClientList);
+Console.WriteLine("-----------------------------------------");
 
-Console.WriteLine("---------------Before Payment-----------------");
-ShowPaymentMeansBalance(client3);
+Console.WriteLine("Sort by overall balance:");
+bankClientList.Sort(new ClientAllMeansBalanceComparer());
+ShowClientListPaymentMeans(bankClientList);
+Console.WriteLine("-----------------------------------------");
 
-Console.WriteLine("Paying amount: " + amount1 + " " + client3.MakePayment(amount1));
-Console.WriteLine("Paying amount: " + amount2 + " " + client3.MakePayment(amount2));
-Console.WriteLine("Paying amount: " + amount3 + " " + client3.MakePayment(amount3));
-
-Console.WriteLine("---------------After Payment-----------------");
-ShowPaymentMeansBalance(client3);
+Console.WriteLine("Sort by maximal balance of one of the means:");
+bankClientList.Sort(new ClientMaxBalanceComparer());
+ShowClientListPaymentMeans(bankClientList);
+Console.WriteLine("-----------------------------------------");
