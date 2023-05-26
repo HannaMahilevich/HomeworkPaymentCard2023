@@ -82,4 +82,27 @@ class BankClient
         }
         return count;
     }
+
+    public decimal GetTotalBalance()
+    {
+        decimal totalBalance = 0;
+        foreach (IPaymentMean paymentMean in PaymentMeans)
+        {
+            totalBalance += paymentMean.GetBalance();
+        }
+        return totalBalance;
+    }
+
+    public decimal GetMaxBalance()
+    {
+        decimal maxBalance = 0;
+        foreach (IPaymentMean paymentMean in PaymentMeans)
+        {
+            if (paymentMean.GetBalance() > maxBalance)
+            {
+                maxBalance = paymentMean.GetBalance();
+            }
+        }
+        return maxBalance;
+    }
 }

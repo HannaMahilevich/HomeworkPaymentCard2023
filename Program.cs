@@ -26,7 +26,7 @@ static void ShowClientListPaymentMeans(List<BankClient> bankClientList)
 {
     foreach (BankClient client in bankClientList)
     {
-        Console.WriteLine(String.Format("Name: {0}", client.ClientInfo.Name));
+        Console.WriteLine(String.Format("Name: {0}, Total Balance: {1}", client.ClientInfo.Name, client.GetTotalBalance()));
         foreach (IPaymentMean paymentMean in client.PaymentMeans)
         {
             Console.WriteLine(String.Format("{0}, {1}", paymentMean.GetID(), paymentMean.GetBalance()));
@@ -83,26 +83,21 @@ client3.PaymentMeans.AddRange(new List<IPaymentMean>
 List<BankClient> bankClientList = new List<BankClient>() { client1, client2, client3 };
 
 Console.WriteLine("Sort by name:");
-bankClientList.Sort(new ClientNameComparer());
-ShowClientListName(bankClientList);
+ShowClientListName(bankClientList.OrderBy( x => x.ClientInfo.Name).ToList());
 Console.WriteLine("-----------------------------------------");
 
 Console.WriteLine("Sort by address:");
-bankClientList.Sort(new ClientAddressComparer());
-ShowClientListAddress(bankClientList);
+ShowClientListAddress(bankClientList.OrderBy( x => x.ClientInfo.Address).ToList());
 Console.WriteLine("-----------------------------------------");
 
 Console.WriteLine("Sort by number of cards:");
-bankClientList.Sort(new ClientCardsCountComparer());
-ShowClientListCardsCount(bankClientList);
+ShowClientListCardsCount(bankClientList.OrderBy( x => x.GetCardCount()).ToList());
 Console.WriteLine("-----------------------------------------");
 
 Console.WriteLine("Sort by overall balance:");
-bankClientList.Sort(new ClientAllMeansBalanceComparer());
-ShowClientListPaymentMeans(bankClientList);
+ShowClientListPaymentMeans(bankClientList.OrderBy( x => x.GetTotalBalance()).ToList());
 Console.WriteLine("-----------------------------------------");
 
 Console.WriteLine("Sort by maximal balance of one of the means:");
-bankClientList.Sort(new ClientMaxBalanceComparer());
-ShowClientListPaymentMeans(bankClientList);
+ShowClientListPaymentMeans(bankClientList.OrderBy( x => x.GetMaxBalance()).ToList());
 Console.WriteLine("-----------------------------------------");
