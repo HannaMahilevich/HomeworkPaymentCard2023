@@ -18,7 +18,7 @@ class BankClient
     public bool MakePayment(decimal amount)
     {
         {
-            List<IPaymentMean> cashList = PaymentMeans.Where(x => x is Cash).ToList();
+            IEnumerable<IPaymentMean> cashList = PaymentMeans.Where(x => x is Cash);
             foreach (IPaymentMean paymentMean in cashList)
             {
                 if (paymentMean.MakePayment(amount))
@@ -28,7 +28,7 @@ class BankClient
             }
         }
         {
-            List<IPaymentMean> cashBackList = PaymentMeans.Where(x => x is CashBackCard).ToList();
+            IEnumerable<IPaymentMean> cashBackList = PaymentMeans.Where(x => x is CashBackCard);
             foreach (IPaymentMean paymentMean in cashBackList)
             {
                 if (paymentMean.MakePayment(amount))
@@ -38,7 +38,7 @@ class BankClient
             }
         }
         {
-            List<IPaymentMean> debitCardList = PaymentMeans.Where(x => x is DebitCard).ToList();
+            IEnumerable<IPaymentMean> debitCardList = PaymentMeans.Where(x => x is DebitCard);
             foreach (IPaymentMean paymentMean in debitCardList)
             {
                 if (paymentMean.MakePayment(amount))
@@ -48,7 +48,7 @@ class BankClient
             }
         }
         {
-            List<IPaymentMean> creditCardList = PaymentMeans.Where(x => x is CreditCard).ToList();
+            IEnumerable<IPaymentMean> creditCardList = PaymentMeans.Where(x => x is CreditCard);
             foreach (IPaymentMean paymentMean in creditCardList)
             {
                 if (paymentMean.MakePayment(amount))
@@ -58,7 +58,7 @@ class BankClient
             }
         }
         {
-            List<IPaymentMean> bitcoinList = PaymentMeans.Where(x => x is Bitcoin).ToList();
+            IEnumerable<IPaymentMean> bitcoinList = PaymentMeans.Where(x => x is Bitcoin);
             foreach (IPaymentMean paymentMean in bitcoinList)
             {
                 if (paymentMean.MakePayment(amount))
