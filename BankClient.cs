@@ -110,4 +110,22 @@ class BankClient
         }
         return maxBalance;
     }
+
+    public override string ToString()
+    {
+        return ClientInfo + "," + GetTotalBalance();
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is BankClient)
+        {
+            BankClient bankClient = obj as BankClient;
+            return bankClient.ClientInfo.Name == ClientInfo.Name&&
+                   bankClient.ClientInfo.Address.Equals(ClientInfo.Address) &&
+                   bankClient.GetTotalBalance() == GetTotalBalance();
+        }
+        return false;
+    }
+
 }

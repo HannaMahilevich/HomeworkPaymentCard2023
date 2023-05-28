@@ -37,4 +37,20 @@ class Bitcoin : IPaymentMean
     {
         return String.Format("{0}", PaymentMeanType);
     }
+
+    public override string ToString()
+    {
+        return PaymentMeanType + "," + Balance;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is Bitcoin)
+        {
+            Bitcoin bitcoin = obj as Bitcoin;
+            return bitcoin.Balance == Balance;
+        }
+        return false;
+    }
+
 }

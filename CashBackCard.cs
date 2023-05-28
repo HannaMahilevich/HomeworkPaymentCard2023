@@ -42,4 +42,20 @@ class CashBackCard : PaymentCard
         return String.Format("{0} {1}", PaymentMeanType, CardNumber);
     }
 
+    public override string ToString()
+    {
+        return PaymentMeanType + "," + AccountBalance + ", CashBack rate: " + CashBackRate;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is CashBackCard)
+        {
+            CashBackCard cashBackCard = obj as CashBackCard;
+            return cashBackCard.AccountBalance == AccountBalance&&
+                   cashBackCard.CashBackRate == CashBackRate;
+        }
+        return false;
+    }
+
 }

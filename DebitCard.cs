@@ -39,4 +39,21 @@ public class DebitCard : PaymentCard
     {
         return String.Format("{0} {1}", PaymentMeanType, CardNumber);
     }
+
+    public override string ToString()
+    {
+        return PaymentMeanType + "," + AccountBalance + ", Deposit interest rate: " + DepositInterestRate;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is DebitCard)
+        {
+            DebitCard debitCard = obj as DebitCard;
+            return debitCard.AccountBalance == AccountBalance &&
+                   debitCard.DepositInterestRate == DepositInterestRate;
+        }
+        return false;
+    }
+
 }

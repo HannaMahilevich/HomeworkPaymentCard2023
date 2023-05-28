@@ -24,4 +24,18 @@ public class Address : IComparable<Address>
     {
         return this.ToString().CompareTo(address.ToString());
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is Address)
+        {
+            Address address = obj as Address;
+            return address.Country == Country &&
+                   address.City == City &&
+                   address.Street == Street &&
+                   address.HouseNumber == HouseNumber &&
+                   address.FlatNumber == FlatNumber;
+        }
+        return false;
+    }
 }

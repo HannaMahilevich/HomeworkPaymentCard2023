@@ -42,4 +42,25 @@ public class CreditCard : PaymentCard
     {
         return String.Format("{0} {1}", PaymentMeanType, CardNumber);
     }
+
+    public override string ToString()
+    {
+        return PaymentMeanType + "," + AccountBalance + ", CashBack rate: " + CreditInterestRate + ", Limit: " + CreditLimit;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is CreditCard)
+        {
+            CreditCard creditCard = obj as CreditCard;
+            if (obj is CreditCard)
+            {
+                return creditCard.AccountBalance == AccountBalance &&
+                       creditCard.CreditLimit == CreditLimit&&
+                       creditCard.CreditInterestRate == CreditInterestRate;
+            }
+        }
+        return false;
+    }
+
 }

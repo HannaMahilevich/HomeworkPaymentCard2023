@@ -33,4 +33,19 @@ class Cash : IPaymentMean
     {
         return String.Format("{0}", PaymentMeanType);
     }
+
+    public override string ToString()
+    {
+        return PaymentMeanType + "," + Balance;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is Cash)
+        {
+            Cash cash = obj as Cash;
+            return cash.Balance == Balance;
+        }
+        return false;
+    }
 }

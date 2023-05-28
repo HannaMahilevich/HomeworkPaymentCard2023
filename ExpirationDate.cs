@@ -13,4 +13,16 @@ public class ExpirationDate
     {
         return ExpirationMonth + "/" + ExpirationYear;
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is ExpirationDate)
+        {
+            ExpirationDate expirationDate = obj as ExpirationDate;
+            return expirationDate.ExpirationMonth == ExpirationMonth &&
+                   expirationDate.ExpirationYear == ExpirationYear;
+        }
+        return false;
+    }
+
 }
