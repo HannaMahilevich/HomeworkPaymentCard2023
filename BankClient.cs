@@ -93,6 +93,11 @@ class BankClient
         return totalBalance;
     }
 
+    public decimal GetTotalBalanceLinq()
+    {
+        return PaymentMeans.Sum(x => x.GetBalance());
+    }
+
     public decimal GetMaxBalance()
     {
         decimal maxBalance = 0;

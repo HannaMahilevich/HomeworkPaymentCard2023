@@ -34,6 +34,26 @@ static void ShowClientListPaymentMeans(List<BankClient> bankClientList)
     }
 }
 
+static void ShowClientDebitCards(BankClient client)
+{
+    Console.WriteLine(String.Format("Name: {0}", client.ClientInfo.Name));
+    IEnumerable<IPaymentMean> debitCards = client.PaymentMeans.Where(x => x is DebitCard);
+    foreach (IPaymentMean paymentMean in debitCards)
+    {
+        Console.WriteLine(String.Format("{0}, {1}", paymentMean.GetID(), paymentMean.GetBalance()));
+    }
+}
+
+static void ShowClientTotalBalance(BankClient client)
+{
+    Console.WriteLine(String.Format("Name: {0}, Total Balance: {1}", client.ClientInfo.Name, client.GetTotalBalanceLinq()));
+}
+
+static void Separator()
+{
+    Console.WriteLine("-----------------------------------------");
+}
+
 Address address1 = new Address("PL", "Warsaw", "Narwik", 24, 53);
 Address address2 = new Address("PL", "Gdansk", "Jaglana", 6, 24);
 Address address3 = new Address("DE", "Berlin", "Gassnerweg", 18, 5);
@@ -82,22 +102,37 @@ client3.PaymentMeans.AddRange(new List<IPaymentMean>
 
 List<BankClient> bankClientList = new List<BankClient>() { client1, client2, client3 };
 
-Console.WriteLine("Sort by name:");
-ShowClientListName(bankClientList.OrderBy( x => x.ClientInfo.Name).ToList());
-Console.WriteLine("-----------------------------------------");
+// Console.WriteLine("Sort by name:");
+// ShowClientListName(bankClientList.OrderBy(x => x.ClientInfo.Name).ToList());
+// Separator();
 
-Console.WriteLine("Sort by address:");
-ShowClientListAddress(bankClientList.OrderBy( x => x.ClientInfo.Address).ToList());
-Console.WriteLine("-----------------------------------------");
+// Console.WriteLine("Sort by address:");
+// ShowClientListAddress(bankClientList.OrderBy(x => x.ClientInfo.Address).ToList());
+// Separator();
 
-Console.WriteLine("Sort by number of cards:");
-ShowClientListCardsCount(bankClientList.OrderBy( x => x.GetCardCount()).ToList());
-Console.WriteLine("-----------------------------------------");
+// Console.WriteLine("Sort by number of cards:");
+// ShowClientListCardsCount(bankClientList.OrderBy(x => x.GetCardCount()).ToList());
+// Separator();
 
-Console.WriteLine("Sort by overall balance:");
-ShowClientListPaymentMeans(bankClientList.OrderBy( x => x.GetTotalBalance()).ToList());
-Console.WriteLine("-----------------------------------------");
+// Console.WriteLine("Sort by overall balance:");
+// ShowClientListPaymentMeans(bankClientList.OrderBy(x => x.GetTotalBalance()).ToList());
+// Separator();
 
-Console.WriteLine("Sort by maximal balance of one of the means:");
-ShowClientListPaymentMeans(bankClientList.OrderBy( x => x.GetMaxBalance()).ToList());
-Console.WriteLine("-----------------------------------------");
+// Console.WriteLine("Sort by maximal balance of one of the means:");
+// ShowClientListPaymentMeans(bankClientList.OrderBy(x => x.GetMaxBalance()).ToList());
+// Separator();
+
+// Task3.2.1 This method uses linq to show list of Debit Cards of one client
+ShowClientDebitCards(client1);
+Separator();
+ShowClientDebitCards(client2);
+Separator();
+ShowClientDebitCards(client3);
+Separator();
+
+// Task3.2.2 This method uses linq to show total balance of a client
+ShowClientTotalBalance(client1);
+Separator();
+
+Console.Beep(440, 500);
+
